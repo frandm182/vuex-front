@@ -8,6 +8,14 @@ module.exports.controller = (app) => {
     });
   });
 
+  // fetch one movie
+  app.get('/api/movies/:id', (req, res) => {
+    MovieSchema.findById(req.params.id, 'name description release_year genre', (err, movie) => {
+      if(err) { console.log(err); }
+      res.send(movie);
+    });
+  });
+
   // add a new movie
   app.post('/movies', (req, res) => {
     const newMovie = new MovieSchema({
